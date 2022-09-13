@@ -10,6 +10,7 @@ function App() {
   let [따봉, 따봉변경] = useState([0,0,0]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(2);
+  let [입력값, 입력값변경] = useState('');
   
 
   return (
@@ -43,22 +44,28 @@ function App() {
           return (
             <div className="list" key={i}>
               <h4 onClick={()=>{setModal(true); setTitle(i)}}>{ 글제목[i] }
-              <span onClick={()=>{ 
+              <span onClick={(e)=>{ 
+                e.stopPropagation();
                 let copy2 = [...따봉]; 
                 copy2[i] = copy2[i] + 1;
                 따봉변경(copy2)
                 }}>👍</span> 
               { 따봉[i] }</h4>
               <p>2월 17일 발행</p>
+              <button onClick={()=> { let copy3 = [...글제목]; copy3.splice(i, 1); 글제목변경(copy3) }}>삭제</button>
             </div>
             )
         })
       }
 
-      <button onClick={()=> {setTitle(0) }}>글제목0</button>
+      {/* <button onClick={()=> {setTitle(0) }}>글제목0</button>
       <button onClick={()=> {setTitle(1) }}>글제목1</button>
-      <button onClick={()=> {setTitle(2) }}>글제목2</button>
+      <button onClick={()=> {setTitle(2) }}>글제목2</button> */}
       
+      <input onChange={(e)=>{ 입력값변경(e.target.value); 
+        console.log(입력값) }} />
+      <button onClick={()=> { let copy3 = [...글제목]; copy3.unshift(입력값); 글제목변경(copy3) }}>추가</button>
+
       {
         modal == true ? <Modal title = {title}  글제목={글제목}/> : null
       }
