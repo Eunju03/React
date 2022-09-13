@@ -2,7 +2,7 @@
 
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
 
@@ -62,14 +62,13 @@ function App() {
       <button onClick={()=> {setTitle(1) }}>글제목1</button>
       <button onClick={()=> {setTitle(2) }}>글제목2</button> */}
       
-      <input onChange={(e)=>{ 입력값변경(e.target.value); 
-        console.log(입력값) }} />
+      <input onChange={(e)=>{ 입력값변경(e.target.value); }} />
       <button onClick={()=> { let copy3 = [...글제목]; copy3.unshift(입력값); 글제목변경(copy3) }}>추가</button>
 
       {
         modal == true ? <Modal title = {title}  글제목={글제목}/> : null
       }
-
+      <Modal2></Modal2>
 
       </div>
   );
@@ -85,5 +84,23 @@ function Modal(props) {
     </div>
   )
 }
+
+// 클래스 컴포넌트 만드는법
+class Modal2 extends React.Component{
+  constructor(props){
+    super(props)
+    // 클래스안에서 state 만드는법
+    this.state = {
+      name : 'Kim',
+      age : 20
+    }
+  }
+  render(){
+    return(
+      <div>안녕 {this.state.age}<button onClick={()=>{ this.setState({age : 21}) }}>버튼</button></div>
+    )
+  }
+}
+
 
 export default App;
